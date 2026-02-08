@@ -8,6 +8,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.coil.compose)
+    implementation(libs.coil.okhttp)
+
     api(projects.core.designSystem)
     api(projects.core.model)
 }
