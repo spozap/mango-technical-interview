@@ -1,4 +1,4 @@
-package dev.spozap.mango_technical_interview.ui.theme
+package dev.spozap.design_system
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

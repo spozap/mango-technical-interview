@@ -1,6 +1,5 @@
-package dev.spozap.mango_technical_interview.ui.theme
+package dev.spozap.design_system
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

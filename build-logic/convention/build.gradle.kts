@@ -25,6 +25,10 @@ gradlePlugin {
             id = libs.plugins.android.feature.get().pluginId
             implementationClass = "dev.spozap.convention.AndroidFeatureConventionPlugin"
         }
+        register("hilt") {
+            id = libs.plugins.hilt.plugin.get().pluginId
+            implementationClass = "dev.spozap.convention.HiltConventionPlugin"
+        }
     }
 }
 
@@ -32,4 +36,5 @@ dependencies {
     compileOnly(libs.gradle.api)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.android.tools.common)
+    compileOnly(libs.ksp.gradlePlugin)
 }
