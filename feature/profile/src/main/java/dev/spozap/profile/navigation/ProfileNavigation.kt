@@ -7,14 +7,14 @@ import dev.spozap.profile.ProfileScreenRoute
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object NavigationRouteKey
+data object ProfileRouteKey
 
 fun NavController.navigateToProfile() {
-    navigate(route = NavigationRouteKey)
+    navigate(route = ProfileRouteKey)
 }
 
 fun NavGraphBuilder.profileRoute() {
-    composable<NavigationRouteKey> {
+    composable<ProfileRouteKey> {
         ProfileScreenRoute()
     }
 }
