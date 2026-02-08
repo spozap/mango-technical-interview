@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "dev.spozap.feature.profile"
 }
+
+dependencies {
+    implementation(projects.core.data)
+}
