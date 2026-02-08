@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -20,4 +21,10 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "mango-technical-interview"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 include(":app")
+include(":feature:profile")
+include(":core:design-system")
+include(":core:ui")
