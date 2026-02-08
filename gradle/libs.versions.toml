@@ -18,6 +18,7 @@ ksp = "2.3.5"
 hiltNavigationCompose = "1.3.0"
 retrofit = "3.0.0"
 coil = "3.3.0"
+room = "2.8.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,12 +54,16 @@ retrofit-ktx-serialization-converter = { group = "com.squareup.retrofit2", name 
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 
 #build-logic
 gradle-api = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 android-tools-common = { module = "com.android.tools:common", version.ref = "androidTools" }
 ksp-gradlePlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+room-gradlePlugin = { module = "androidx.room:room-gradle-plugin", version.ref = "room" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -69,6 +74,7 @@ com-android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+room = { id = "androidx.room", version.ref = "room" }
 
 ## Local plugins
 android-library = { id = "dev.spozap.convention.library" }
@@ -76,3 +82,4 @@ android-library-compose = { id = "dev.spozap.convention.library-compose" }
 android-feature = { id = "dev.spozap.convention.feature" }
 hilt-plugin = { id = "dev.spozap.convention.hilt" }
 jvm = { id = "dev.spozap.convention.jvm" }
+room-plugin = { id = "dev.spozap.convention.room" }

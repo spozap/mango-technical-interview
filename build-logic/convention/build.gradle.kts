@@ -36,6 +36,10 @@ gradlePlugin {
             id = libs.plugins.jvm.get().pluginId
             implementationClass = "dev.spozap.convention.JvmLibConventionPlugin"
         }
+        register("room") {
+            id = libs.plugins.room.plugin.get().pluginId
+            implementationClass = "dev.spozap.convention.RoomConventionPlugin"
+        }
     }
 }
 
@@ -44,4 +48,5 @@ dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.android.tools.common)
     compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
 }
