@@ -2,12 +2,12 @@ plugins {
     `kotlin-dsl`
 }
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 kotlin {
     compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 
@@ -28,6 +28,10 @@ gradlePlugin {
         register("hilt") {
             id = libs.plugins.hilt.plugin.get().pluginId
             implementationClass = "dev.spozap.convention.HiltConventionPlugin"
+        }
+        register("jvmLib") {
+            id = libs.plugins.jvm.get().pluginId
+            implementationClass = "dev.spozap.convention.JvmLibConventionPlugin"
         }
     }
 }
