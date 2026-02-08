@@ -22,27 +22,34 @@ import dev.spozap.core.ui.components.ProductCard
 @Composable
 internal fun ProductsScreenRoute(viewModel: ProductsViewModel = hiltViewModel()) {
     val productsUiState by viewModel.products.collectAsStateWithLifecycle()
-    ProductsScreen(uiState = productsUiState)
+    ProductsScreen(uiState = productsUiState, onAddToFavourites = viewModel::addProductToFavourites)
 }
 
 @Composable
-private fun ProductsScreen(uiState: ProductsUiState, modifier: Modifier = Modifier) {
+private fun ProductsScreen(
+    uiState: ProductsUiState,
+    onAddToFavourites: (Product) -> Unit,
+    modifier: Modifier = Modifier
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = PaddingValues(vertical = 24.dp)
     ) {
         when (uiState) {
-            is ProductsUiState.Success -> productsScreenSuccess(uiState.products)
+            is ProductsUiState.Success -> productsScreenSuccess(uiState.products, onAddToFavourites)
             is ProductsUiState.Loading -> productsScreenLoading()
             is ProductsUiState.Error -> productsScreenError()
         }
     }
 }
 
-private fun LazyListScope.productsScreenSuccess(products: List<Product>) {
+private fun LazyListScope.productsScreenSuccess(
+    products: List<Product>,
+    onAddToFavourites: (Product) -> Unit
+) {
     items(items = products, key = { it.id }) {
-        ProductCard(it)
+        ProductCard(it, onAddToFavourites)
     }
 }
 
