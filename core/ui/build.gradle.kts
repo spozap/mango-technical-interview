@@ -9,4 +9,5 @@ android {
 
 dependencies {
     api(projects.core.designSystem)
+    api(projects.core.model)
 }

@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import dev.spozap.feature.products.navigation.productsScreen
 import dev.spozap.mango_technical_interview.components.BottomAppBar
 import dev.spozap.profile.navigation.ProfileRouteKey
 import dev.spozap.profile.navigation.profileRoute
@@ -27,6 +28,7 @@ internal fun AppNavHost(navController: NavHostController) {
                 startDestination = ProfileRouteKey
             ) {
                 profileRoute()
+                productsScreen()
             }
         }
     }

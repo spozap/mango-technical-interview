@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.spozap.core.network.api.ProductApi
 import dev.spozap.core.network.api.ProfileApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -35,6 +36,11 @@ internal class NetworkModule {
     @[Provides Singleton]
     fun providesProfileApi(retrofit: Retrofit): ProfileApi {
         return retrofit.create(ProfileApi::class.java)
+    }
+
+    @[Provides Singleton]
+    fun providesProductsApi(retrofit: Retrofit): ProductApi {
+        return retrofit.create(ProductApi::class.java)
     }
 
 }
