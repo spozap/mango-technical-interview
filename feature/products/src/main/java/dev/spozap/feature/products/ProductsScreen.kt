@@ -31,7 +31,7 @@ internal fun ProductsScreenRoute(viewModel: ProductsViewModel = hiltViewModel())
 }
 
 @Composable
-private fun ProductsScreen(
+internal fun ProductsScreen(
     uiState: ProductsUiState,
     onAddToFavourites: (Product) -> Unit,
     modifier: Modifier = Modifier
@@ -59,8 +59,9 @@ private fun LazyListScope.productsScreenSuccess(
                 onClick = { onAddToFavourites(it) }
             ) {
                 Icon(
+                    modifier = Modifier.testTag("favoriteIcon"),
                     imageVector = Icons.Filled.Favorite,
-                    contentDescription = null,
+                    contentDescription = if (it.isFavourite) "Producto favorito ${it.title}" else "Producto no favorito",
                     tint = if (it.isFavourite) Color.Red else Color.Unspecified,
                 )
             }
