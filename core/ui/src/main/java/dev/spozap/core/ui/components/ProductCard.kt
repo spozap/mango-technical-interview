@@ -67,7 +67,6 @@ fun ProductCard(
                         maxLines = 1
                     )
 
-                    actions?.invoke()
 
                 }
 
@@ -82,6 +81,11 @@ fun ProductCard(
                     text = "⭐ ${product.rating.rate} (${product.rating.count})",
                     style = MaterialTheme.typography.bodySmall
                 )
+            }
+            actions?.let {
+                Column {
+                    it()
+                }
             }
         }
     }

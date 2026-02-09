@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -72,7 +71,7 @@ private fun LazyListScope.favoritesScreenEmpty(modifier: Modifier = Modifier) {
 private fun LazyListScope.favoritesScreenError() {
     item {
         Box(modifier = Modifier.fillParentMaxSize(), contentAlignment = Alignment.Center) {
-            Text("ERROR", modifier = Modifier.testTag("ProfileError"))
+            Text("ERROR")
         }
     }
 }

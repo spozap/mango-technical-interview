@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -64,9 +65,9 @@ private fun LazyListScope.productsScreenSuccess(
             ) {
                 Icon(
                     modifier = Modifier.testTag("favoriteIcon"),
-                    imageVector = Icons.Filled.Favorite,
+                    imageVector = if (it.isFavourite) Icons.Filled.Favorite else Icons.Outlined.Favorite,
                     contentDescription = if (it.isFavourite) "Producto favorito ${it.title}" else "Producto no favorito",
-                    tint = if (it.isFavourite) Color.Red else Color.Unspecified,
+                    tint = if (it.isFavourite) Color.Red else Color.White,
                 )
             }
         })
@@ -84,7 +85,7 @@ private fun LazyListScope.productsScreenLoading(modifier: Modifier = Modifier) {
 private fun LazyListScope.productsScreenError(modifier: Modifier = Modifier) {
     item {
         Box(modifier = modifier.fillParentMaxSize(), contentAlignment = Alignment.Center) {
-            Text("ERROR", modifier = Modifier.testTag("ProfileError"))
+            Text("ERROR")
         }
     }
 }
