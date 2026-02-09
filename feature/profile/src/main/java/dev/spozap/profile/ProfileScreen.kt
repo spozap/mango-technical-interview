@@ -87,7 +87,7 @@ fun ProfileScreenError(modifier: Modifier = Modifier) {
 @Composable
 fun ProfileScreenLoading(modifier: Modifier = Modifier) {
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
-        LoadingWheel(modifier = Modifier.testTag("ProfileLoading"))
+        LoadingWheel()
     }
 }
 

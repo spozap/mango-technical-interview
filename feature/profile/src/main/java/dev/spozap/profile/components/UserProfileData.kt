@@ -43,13 +43,13 @@ fun UserProfileData(
 
             Icon(
                 imageVector = Icons.Default.Person,
-                contentDescription = "Avatar",
+                contentDescription = "Imágen perfil usuario",
                 tint = Color.Gray,
                 modifier = Modifier.size(120.dp)
             )
 
             Spacer(modifier = Modifier.height(24.dp))
-            
+
             Text(
                 text = user.username,
                 style = MaterialTheme.typography.headlineMedium,
