@@ -10,4 +10,7 @@ android {
 dependencies {
     api(projects.core.database)
     api(projects.core.network)
+
+    testImplementation(projects.core.testing)
+    
 }
