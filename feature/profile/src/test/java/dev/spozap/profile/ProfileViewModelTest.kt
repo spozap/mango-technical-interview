@@ -41,7 +41,7 @@ class ProfileViewModelTest {
         viewModel = ProfileViewModel(userRepository, productsRepository)
 
         viewModel.profileUiState.test {
-            assert(ProfileUIState.Loading == awaitItem())
+            assertEquals(ProfileUIState.Loading, awaitItem())
             cancelAndIgnoreRemainingEvents()
         }
     }
