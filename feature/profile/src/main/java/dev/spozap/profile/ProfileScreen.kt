@@ -1,8 +1,11 @@
 package dev.spozap.profile
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,7 +47,9 @@ fun ProfileScreen(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = PaddingValues(vertical = 24.dp)
     ) {
@@ -75,8 +80,10 @@ fun ProfileScreenSuccess(
     onNavigateToFavorites: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    UserProfileData(user, modifier)
-    FavoriteProductsCounter(favouritesCount, onNavigateToFavorites)
+    Column(verticalArrangement = Arrangement.spacedBy(32.dp)) {
+        UserProfileData(user, modifier)
+        FavoriteProductsCounter(favouritesCount, onNavigateToFavorites)
+    }
 }
 
 @Composable
