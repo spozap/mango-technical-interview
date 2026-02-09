@@ -114,7 +114,7 @@ class ProductsViewModelTest {
         val product = fakeProducts.first()
 
         every { productsRepository.getProducts() } returns flowOf(fakeProducts)
-        coEvery { productsRepository.getById(product.id) } returns null
+        coEvery { favoriteProductsRepository.getById(product.id) } returns null
         coEvery { favoriteProductsRepository.removeFromFavourite(product) } returns Unit
         coEvery { favoriteProductsRepository.addToFavourite(product) } returns Unit
 
@@ -131,7 +131,7 @@ class ProductsViewModelTest {
         val product = fakeProducts.first()
 
         every { productsRepository.getProducts() } returns flowOf(fakeProducts)
-        coEvery { productsRepository.getById(product.id) } returns fakeProducts.first()
+        coEvery { favoriteProductsRepository.getById(product.id) } returns fakeProducts.first()
         coEvery { favoriteProductsRepository.removeFromFavourite(product) } returns Unit
         coEvery { favoriteProductsRepository.addToFavourite(product) } returns Unit
 

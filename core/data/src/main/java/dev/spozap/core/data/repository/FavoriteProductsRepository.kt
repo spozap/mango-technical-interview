@@ -9,4 +9,6 @@ interface FavoriteProductsRepository {
     suspend fun addToFavourite(product: Product)
     suspend fun removeFromFavourite(product: Product)
     fun getFavoritesCount(): Flow<Int>
+    suspend fun getById(productId: Int): Product?
+
 }

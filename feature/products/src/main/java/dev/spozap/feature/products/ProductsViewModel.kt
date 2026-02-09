@@ -33,7 +33,7 @@ class ProductsViewModel @Inject constructor(
 
     fun addProductToFavourites(product: Product) {
         viewModelScope.launch {
-            val favouriteProduct = productsRepository.getById(product.id)
+            val favouriteProduct = favoriteProductsRepository.getById(product.id)
 
             if (favouriteProduct == null) {
                 favoriteProductsRepository.addToFavourite(product)

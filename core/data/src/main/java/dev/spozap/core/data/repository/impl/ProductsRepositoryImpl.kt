@@ -30,10 +30,4 @@ internal class ProductsRepositoryImpl @Inject constructor(
             }
         }
     }
-
-    override suspend fun getById(productId: Int): Product? {
-        val entity = productsDao.getById(productId)
-        return entity?.toModel()
-    }
-
 }

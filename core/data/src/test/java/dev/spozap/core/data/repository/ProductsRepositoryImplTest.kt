@@ -52,8 +52,7 @@ class ProductsRepositoryImplTest {
 
     private val productApi: ProductApi = mockk()
     private val productDao: ProductDao = mockk()
-    private lateinit var repository: ProductsRepositoryImpl
-
+    private lateinit var repository: ProductsRepository
 
     @Before
     fun setup() {
@@ -73,13 +72,6 @@ class ProductsRepositoryImplTest {
         }
     }
 
-    @Test
-    fun `getById should return product when exists`() = runTest {
-        coEvery { productDao.getById(1) } returns fakeProducts[0].toEntity()
-
-        val product = repository.getById(1)
-        assertEquals(1, product?.id)
-    }
 
 }
 

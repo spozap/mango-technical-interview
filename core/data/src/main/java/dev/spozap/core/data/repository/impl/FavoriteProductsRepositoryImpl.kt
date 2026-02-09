@@ -28,4 +28,9 @@ class FavoriteProductsRepositoryImpl @Inject constructor(
         return productDao.getFavoritesCount()
     }
 
+    override suspend fun getById(productId: Int): Product? {
+        val entity = productDao.getById(productId)
+        return entity?.toModel()
+    }
+
 }
