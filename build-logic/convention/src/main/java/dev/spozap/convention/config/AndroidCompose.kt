@@ -10,6 +10,8 @@ internal fun Project.configureAndroidCompose(
     commonExtension.apply {
         buildFeatures.compose = true
 
+        defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
         dependencies {
             val bom = libs.findLibrary("androidx-compose-bom").get()
             "implementation"(platform(bom))

@@ -6,6 +6,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import java.io.File
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -15,12 +16,21 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
 
-                defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 testOptions.targetSdk = 36
                 testOptions.animationsDisabled = true
 
                 lint.targetSdk = 36
 
+            }
+
+            afterEvaluate {
+                val androidTestDir = File(projectDir, "src/androidTest")
+                if (!androidTestDir.exists() || androidTestDir.listFiles()?.isEmpty() != false) {
+                    tasks.matching { it.name.startsWith("connected") }.configureEach {
+                        enabled = false
+                        println("⚠️ Disabled ${name} in module ${project.name} (no androidTest sources)")
+                    }
+                }
             }
         }
     }
