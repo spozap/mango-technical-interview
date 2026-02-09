@@ -6,11 +6,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -32,7 +37,7 @@ private fun ProductsScreen(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = PaddingValues(vertical = 24.dp)
     ) {
@@ -49,14 +54,24 @@ private fun LazyListScope.productsScreenSuccess(
     onAddToFavourites: (Product) -> Unit
 ) {
     items(items = products, key = { it.id }) {
-        ProductCard(it, onAddToFavourites)
+        ProductCard(it, actions = {
+            IconButton(
+                onClick = { onAddToFavourites(it) }
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Favorite,
+                    contentDescription = null,
+                    tint = if (it.isFavourite) Color.Red else Color.Unspecified,
+                )
+            }
+        })
     }
 }
 
 private fun LazyListScope.productsScreenLoading(modifier: Modifier = Modifier) {
     item {
         Box(modifier = modifier, contentAlignment = Alignment.Center) {
-            LoadingWheel(modifier = Modifier.testTag("ProfileLoading"))
+            LoadingWheel()
         }
     }
 }

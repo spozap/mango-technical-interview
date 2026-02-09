@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import dev.spozap.feature.favorites.navigation.favoritesScreen
+import dev.spozap.feature.favorites.navigation.navigateToFavorites
 import dev.spozap.feature.products.navigation.productsScreen
 import dev.spozap.mango_technical_interview.components.BottomAppBar
 import dev.spozap.profile.navigation.ProfileRouteKey
@@ -27,8 +29,9 @@ internal fun AppNavHost(navController: NavHostController) {
                 navController = navController,
                 startDestination = ProfileRouteKey
             ) {
-                profileRoute()
+                profileRoute(onNavigateToFavorites = navController::navigateToFavorites)
                 productsScreen()
+                favoritesScreen()
             }
         }
     }

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.spozap.core.data.model.Result
 import dev.spozap.core.data.model.asResult
+import dev.spozap.core.data.repository.ProductsRepository
 import dev.spozap.core.data.repository.UserRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    userRepository: UserRepository
+    userRepository: UserRepository,
+    productsRepository: ProductsRepository
 ) : ViewModel() {
 
     val profileUiState: StateFlow<ProfileUIState> = userRepository.getProfile()
@@ -27,5 +29,8 @@ class ProfileViewModel @Inject constructor(
             }
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ProfileUIState.Loading)
+
+    val favoriteProductsCount = productsRepository.getFavoritesCount()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 0)
 
 }

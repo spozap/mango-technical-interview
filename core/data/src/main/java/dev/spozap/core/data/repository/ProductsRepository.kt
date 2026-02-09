@@ -8,4 +8,5 @@ interface ProductsRepository {
     suspend fun getById(productId: Int): Product?
     suspend fun addToFavourite(product: Product)
     suspend fun removeFromFavourite(product: Product)
+    fun getFavoritesCount(): Flow<Int>
 }

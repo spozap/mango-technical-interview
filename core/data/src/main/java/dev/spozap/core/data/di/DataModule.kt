@@ -4,8 +4,10 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.spozap.core.data.repository.FavoriteProductsRepository
 import dev.spozap.core.data.repository.ProductsRepository
 import dev.spozap.core.data.repository.UserRepository
+import dev.spozap.core.data.repository.impl.FavoriteProductsRepositoryImpl
 import dev.spozap.core.data.repository.impl.ProductsRepositoryImpl
 import dev.spozap.core.data.repository.impl.UserRepositoryImpl
 
@@ -17,4 +19,7 @@ internal abstract class DataModule {
 
     @Binds
     internal abstract fun bindsProductRepository(impl: ProductsRepositoryImpl): ProductsRepository
+
+    @Binds
+    internal abstract fun bindsFavoriteProductRepository(impl: FavoriteProductsRepositoryImpl): FavoriteProductsRepository
 }

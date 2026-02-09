@@ -55,6 +55,7 @@ dependencies {
 
     implementation(projects.feature.profile)
     implementation(projects.feature.products)
+    implementation(projects.feature.favorites)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

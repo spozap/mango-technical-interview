@@ -44,4 +44,8 @@ internal class ProductsRepositoryImpl @Inject constructor(
     override suspend fun removeFromFavourite(product: Product) {
         productsDao.delete(product.toEntity())
     }
+
+    override fun getFavoritesCount(): Flow<Int> {
+        return productsDao.getFavoritesCount()
+    }
 }

@@ -13,8 +13,8 @@ fun NavController.navigateToProfile() {
     navigate(route = ProfileRouteKey)
 }
 
-fun NavGraphBuilder.profileRoute() {
+fun NavGraphBuilder.profileRoute(onNavigateToFavorites: () -> Unit) {
     composable<ProfileRouteKey> {
-        ProfileScreenRoute()
+        ProfileScreenRoute(onNavigateToFavorites = onNavigateToFavorites)
     }
 }

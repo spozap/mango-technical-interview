@@ -16,17 +16,29 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.spozap.core.model.User
 import dev.spozap.core.ui.components.LoadingWheel
+import dev.spozap.profile.components.FavoriteProductsCounter
 import dev.spozap.profile.components.UserProfileData
 
 @Composable
-internal fun ProfileScreenRoute(viewModel: ProfileViewModel = hiltViewModel()) {
+internal fun ProfileScreenRoute(
+    viewModel: ProfileViewModel = hiltViewModel(),
+    onNavigateToFavorites: () -> Unit
+) {
     val profileUiState by viewModel.profileUiState.collectAsStateWithLifecycle()
-    ProfileScreen(uiState = profileUiState)
+    val favoriteProductsCount by viewModel.favoriteProductsCount.collectAsStateWithLifecycle()
+
+    ProfileScreen(
+        uiState = profileUiState,
+        favoriteProductsCount = favoriteProductsCount,
+        onNavigateToFavorites = onNavigateToFavorites
+    )
 }
 
 @Composable
 fun ProfileScreen(
     uiState: ProfileUIState,
+    favoriteProductsCount: Int,
+    onNavigateToFavorites: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -35,7 +47,13 @@ fun ProfileScreen(
         contentPadding = PaddingValues(vertical = 24.dp)
     ) {
         when (uiState) {
-            is ProfileUIState.Success -> item { ProfileScreenSuccess(uiState.profile) }
+            is ProfileUIState.Success -> item {
+                ProfileScreenSuccess(
+                    user = uiState.profile,
+                    favouritesCount = favoriteProductsCount,
+                    onNavigateToFavorites = onNavigateToFavorites
+                )
+            }
 
             is ProfileUIState.Loading -> item {
                 ProfileScreenLoading(modifier = Modifier.fillParentMaxSize())
@@ -49,8 +67,14 @@ fun ProfileScreen(
 }
 
 @Composable
-fun ProfileScreenSuccess(user: User, modifier: Modifier = Modifier) {
+fun ProfileScreenSuccess(
+    user: User,
+    favouritesCount: Int,
+    onNavigateToFavorites: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     UserProfileData(user, modifier)
+    FavoriteProductsCounter(favouritesCount, onNavigateToFavorites)
 }
 
 @Composable
@@ -79,6 +103,8 @@ private fun ProfileScreenSuccessPreview() {
                 email = "prueba@gmail.com",
                 phone = "+34 655555555"
             )
-        )
+        ),
+        favoriteProductsCount = 10,
+        onNavigateToFavorites = {}
     )
 }

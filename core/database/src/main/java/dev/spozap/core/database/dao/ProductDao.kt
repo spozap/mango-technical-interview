@@ -22,4 +22,7 @@ interface ProductDao {
     @Delete
     suspend fun delete(product: ProductEntity)
 
+    @Query("SELECT COUNT(*) FROM favourite_products")
+    fun getFavoritesCount(): Flow<Int>
+
 }
