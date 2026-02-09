@@ -1,6 +1,5 @@
 package dev.spozap.core.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,13 +14,17 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil3.compose.rememberAsyncImagePainter
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import dev.spozap.core.model.Product
 import dev.spozap.core.ui.previews.PRODUCT_PREVIEW
 import dev.spozap.design_system.MangotechnicalinterviewTheme
@@ -32,6 +35,16 @@ fun ProductCard(
     actions: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
+
+    val context = LocalContext.current
+
+    val imageRequest = remember(product.image) {
+        ImageRequest.Builder(context)
+            .data(product.image)
+            .crossfade(true)
+            .build()
+    }
+    
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -46,8 +59,8 @@ fun ProductCard(
                 .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = rememberAsyncImagePainter(product.image),
+            AsyncImage(
+                model = imageRequest,
                 contentDescription = product.title,
                 modifier = Modifier
                     .size(64.dp)
