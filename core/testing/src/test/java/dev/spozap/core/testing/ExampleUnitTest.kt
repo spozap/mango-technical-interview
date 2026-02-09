@@ -1,4 +1,4 @@
-package dev.spozap.profile
+package dev.spozap.core.testing
 
 import org.junit.Test
 
