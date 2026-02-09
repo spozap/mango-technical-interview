@@ -1,6 +1,7 @@
 package dev.spozap.feature.products
 
 import app.cash.turbine.test
+import dev.spozap.core.data.repository.FavoriteProductsRepository
 import dev.spozap.core.data.repository.ProductsRepository
 import dev.spozap.core.model.Product
 import dev.spozap.core.model.ProductRating
@@ -51,19 +52,21 @@ class ProductsViewModelTest {
     private val dispatchersRule = MainDispatcherRule()
 
     private lateinit var productsRepository: ProductsRepository
+    private lateinit var favoriteProductsRepository: FavoriteProductsRepository
 
     private lateinit var viewModel: ProductsViewModel
 
     @Before
     fun setup() {
         productsRepository = mockk()
+        favoriteProductsRepository = mockk()
     }
 
     @Test
     fun `initial ProductsUiState is Loading`() = runTest {
         every { productsRepository.getProducts() } returns emptyFlow()
 
-        viewModel = ProductsViewModel(productsRepository)
+        viewModel = ProductsViewModel(productsRepository, favoriteProductsRepository)
 
         viewModel.products.test {
             assertEquals(ProductsUiState.Loading, awaitItem())
@@ -75,7 +78,7 @@ class ProductsViewModelTest {
     @Test
     fun `when products are loaded UiState is Success`() = runTest {
         every { productsRepository.getProducts() } returns flowOf(fakeProducts)
-        viewModel = ProductsViewModel(productsRepository)
+        viewModel = ProductsViewModel(productsRepository, favoriteProductsRepository)
 
         viewModel.products.test {
             assertEquals(ProductsUiState.Loading, awaitItem())
@@ -93,7 +96,7 @@ class ProductsViewModelTest {
         every { productsRepository.getProducts() } returns flow {
             throw Exception("")
         }
-        viewModel = ProductsViewModel(productsRepository)
+        viewModel = ProductsViewModel(productsRepository, favoriteProductsRepository)
 
         viewModel.products.test {
             assertEquals(ProductsUiState.Loading, awaitItem())
@@ -112,14 +115,14 @@ class ProductsViewModelTest {
 
         every { productsRepository.getProducts() } returns flowOf(fakeProducts)
         coEvery { productsRepository.getById(product.id) } returns null
-        coEvery { productsRepository.removeFromFavourite(product) } returns Unit
-        coEvery { productsRepository.addToFavourite(product) } returns Unit
+        coEvery { favoriteProductsRepository.removeFromFavourite(product) } returns Unit
+        coEvery { favoriteProductsRepository.addToFavourite(product) } returns Unit
 
-        viewModel = ProductsViewModel(productsRepository)
+        viewModel = ProductsViewModel(productsRepository, favoriteProductsRepository)
         viewModel.addProductToFavourites(product)
 
-        coVerify(exactly = 1) { productsRepository.addToFavourite(product) }
-        coVerify(exactly = 0) { productsRepository.removeFromFavourite(product) }
+        coVerify(exactly = 1) { favoriteProductsRepository.addToFavourite(product) }
+        coVerify(exactly = 0) { favoriteProductsRepository.removeFromFavourite(product) }
 
     }
 
@@ -129,14 +132,14 @@ class ProductsViewModelTest {
 
         every { productsRepository.getProducts() } returns flowOf(fakeProducts)
         coEvery { productsRepository.getById(product.id) } returns fakeProducts.first()
-        coEvery { productsRepository.removeFromFavourite(product) } returns Unit
-        coEvery { productsRepository.addToFavourite(product) } returns Unit
+        coEvery { favoriteProductsRepository.removeFromFavourite(product) } returns Unit
+        coEvery { favoriteProductsRepository.addToFavourite(product) } returns Unit
 
-        viewModel = ProductsViewModel(productsRepository)
+        viewModel = ProductsViewModel(productsRepository, favoriteProductsRepository)
         viewModel.addProductToFavourites(product)
 
-        coVerify(exactly = 0) { productsRepository.addToFavourite(product) }
-        coVerify(exactly = 1) { productsRepository.removeFromFavourite(product) }
+        coVerify(exactly = 0) { favoriteProductsRepository.addToFavourite(product) }
+        coVerify(exactly = 1) { favoriteProductsRepository.removeFromFavourite(product) }
     }
 
 }

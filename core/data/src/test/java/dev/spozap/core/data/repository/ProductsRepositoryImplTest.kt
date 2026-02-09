@@ -9,11 +9,8 @@ import dev.spozap.core.model.ProductRating
 import dev.spozap.core.network.api.ProductApi
 import dev.spozap.core.network.dto.responses.ProductRatingResponse
 import dev.spozap.core.network.dto.responses.ProductResponse
-import io.mockk.Runs
 import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.flow
@@ -84,23 +81,6 @@ class ProductsRepositoryImplTest {
         assertEquals(1, product?.id)
     }
 
-    @Test
-    fun `addToFavourite should call insert`() = runTest {
-        coEvery { productDao.insert(any()) } just Runs
-
-        repository.addToFavourite(fakeProducts[0])
-
-        coVerify { productDao.insert(fakeProducts[0].toEntity()) }
-    }
-
-    @Test
-    fun `removeFromFavourite should call delete`() = runTest {
-        coEvery { productDao.delete(any()) } just Runs
-
-        repository.removeFromFavourite(fakeProducts[0])
-
-        coVerify { productDao.delete(fakeProducts[0].toEntity()) }
-    }
 }
 
 private fun Product.toResponse() = ProductResponse(

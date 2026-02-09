@@ -1,7 +1,7 @@
 package dev.spozap.profile
 
 import app.cash.turbine.test
-import dev.spozap.core.data.repository.ProductsRepository
+import dev.spozap.core.data.repository.FavoriteProductsRepository
 import dev.spozap.core.data.repository.UserRepository
 import dev.spozap.core.model.User
 import dev.spozap.core.testing.MainDispatcherRule
@@ -23,7 +23,7 @@ class ProfileViewModelTest {
     val dispatcherRule = MainDispatcherRule()
 
     private lateinit var userRepository: UserRepository
-    private lateinit var productsRepository: ProductsRepository
+    private lateinit var productsRepository: FavoriteProductsRepository
 
     private lateinit var viewModel: ProfileViewModel
 
