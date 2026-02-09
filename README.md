@@ -1,6 +1,6 @@
 ### Mango Technical Preview
 
-## Descripción
+## Description
 
 Technical interview done for Mango, showing a product catalog with Jetpack Compose UI,
 Coroutines and Flows.
