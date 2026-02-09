@@ -16,6 +16,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.spozap.core.model.User
 import dev.spozap.core.ui.components.LoadingWheel
+import dev.spozap.core.ui.previews.USER_PREVIEW
+import dev.spozap.design_system.MangotechnicalinterviewTheme
 import dev.spozap.profile.components.FavoriteProductsCounter
 import dev.spozap.profile.components.UserProfileData
 
@@ -91,20 +93,41 @@ fun ProfileScreenLoading(modifier: Modifier = Modifier) {
     }
 }
 
+//region Previews
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun ProfileScreenSuccessPreview() {
-    ProfileScreen(
-        uiState = ProfileUIState.Success(
-            User(
-                id = "1",
-                username = "Prueba",
-                email = "prueba@gmail.com",
-                phone = "+34 655555555"
-            )
-        ),
-        favoriteProductsCount = 10,
-        onNavigateToFavorites = {}
-    )
+    MangotechnicalinterviewTheme {
+        ProfileScreen(
+            uiState = ProfileUIState.Success(USER_PREVIEW),
+            favoriteProductsCount = 10,
+            onNavigateToFavorites = {}
+        )
+    }
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun ProfileScreenErrorPreview() {
+    MangotechnicalinterviewTheme {
+        ProfileScreen(
+            uiState = ProfileUIState.Error(""),
+            favoriteProductsCount = 10,
+            onNavigateToFavorites = {})
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ProfileScreenLoadingPreview() {
+    MangotechnicalinterviewTheme {
+        ProfileScreen(
+            uiState = ProfileUIState.Loading,
+            favoriteProductsCount = 10,
+            onNavigateToFavorites = {}
+        )
+    }
+}
+
+//endregion

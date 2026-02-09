@@ -12,12 +12,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.spozap.core.model.Product
 import dev.spozap.core.ui.components.LoadingWheel
 import dev.spozap.core.ui.components.ProductCard
+import dev.spozap.core.ui.previews.PRODUCT_PREVIEW
+import dev.spozap.design_system.MangotechnicalinterviewTheme
 
 @Composable
 internal fun FavoritesScreenRoute(viewModel: FavoritesViewModel = hiltViewModel()) {
@@ -81,3 +84,39 @@ private fun LazyListScope.favoritesScreenLoading(modifier: Modifier = Modifier) 
         }
     }
 }
+
+//region Previews
+
+@Preview(showBackground = true)
+@Composable
+private fun FavoritesScreenSuccessPreview() {
+    MangotechnicalinterviewTheme {
+        FavoritesScreen(
+            uiState = FavoritesUiState.Success(
+                products = listOf(PRODUCT_PREVIEW)
+            )
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FavoritesScreenLoadingPreview() {
+    MangotechnicalinterviewTheme {
+        FavoritesScreen(
+            uiState = FavoritesUiState.Loading
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FavoritesScreenErrorPreview() {
+    MangotechnicalinterviewTheme {
+        FavoritesScreen(
+            uiState = FavoritesUiState.Error("")
+        )
+    }
+}
+
+//endregion

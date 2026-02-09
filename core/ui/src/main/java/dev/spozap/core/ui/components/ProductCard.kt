@@ -19,9 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
 import dev.spozap.core.model.Product
+import dev.spozap.core.ui.previews.PRODUCT_PREVIEW
+import dev.spozap.design_system.MangotechnicalinterviewTheme
 
 @Composable
 fun ProductCard(
@@ -81,5 +84,13 @@ fun ProductCard(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ProductCardPreview() {
+    MangotechnicalinterviewTheme {
+        ProductCard(product = PRODUCT_PREVIEW)
     }
 }
