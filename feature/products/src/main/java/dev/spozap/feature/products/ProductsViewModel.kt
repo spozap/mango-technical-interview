@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.spozap.core.data.model.Result
 import dev.spozap.core.data.model.asResult
+import dev.spozap.core.data.repository.FavoriteProductsRepository
 import dev.spozap.core.data.repository.ProductsRepository
 import dev.spozap.core.model.Product
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductsViewModel @Inject constructor(
     private val productsRepository: ProductsRepository,
+    private val favoriteProductsRepository: FavoriteProductsRepository,
 ) : ViewModel() {
 
     val products = productsRepository.getProducts()
@@ -34,9 +36,9 @@ class ProductsViewModel @Inject constructor(
             val favouriteProduct = productsRepository.getById(product.id)
 
             if (favouriteProduct == null) {
-                productsRepository.addToFavourite(product)
+                favoriteProductsRepository.addToFavourite(product)
             } else {
-                productsRepository.removeFromFavourite(product)
+                favoriteProductsRepository.removeFromFavourite(product)
             }
         }
     }

@@ -5,4 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface FavoriteProductsRepository {
     val favoriteProducts: Flow<List<Product>>
+
+    suspend fun addToFavourite(product: Product)
+    suspend fun removeFromFavourite(product: Product)
+    fun getFavoritesCount(): Flow<Int>
 }

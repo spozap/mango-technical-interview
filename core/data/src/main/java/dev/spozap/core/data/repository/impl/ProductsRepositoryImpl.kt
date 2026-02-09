@@ -1,6 +1,5 @@
 package dev.spozap.core.data.repository.impl
 
-import dev.spozap.core.data.mappers.toEntity
 import dev.spozap.core.data.mappers.toModel
 import dev.spozap.core.data.repository.ProductsRepository
 import dev.spozap.core.database.dao.ProductDao
@@ -37,15 +36,4 @@ internal class ProductsRepositoryImpl @Inject constructor(
         return entity?.toModel()
     }
 
-    override suspend fun addToFavourite(product: Product) {
-        productsDao.insert(product.toEntity())
-    }
-
-    override suspend fun removeFromFavourite(product: Product) {
-        productsDao.delete(product.toEntity())
-    }
-
-    override fun getFavoritesCount(): Flow<Int> {
-        return productsDao.getFavoritesCount()
-    }
 }
