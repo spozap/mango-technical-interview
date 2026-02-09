@@ -5,6 +5,8 @@ import dev.spozap.core.data.repository.ProductsRepository
 import dev.spozap.core.model.Product
 import dev.spozap.core.model.ProductRating
 import dev.spozap.core.testing.MainDispatcherRule
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.emptyFlow
@@ -102,6 +104,39 @@ class ProductsViewModelTest {
 
             cancelAndIgnoreRemainingEvents()
         }
+    }
+
+    @Test
+    fun `addToFavorites adds product to favorites if not found`() = runTest {
+        val product = fakeProducts.first()
+
+        every { productsRepository.getProducts() } returns flowOf(fakeProducts)
+        coEvery { productsRepository.getById(product.id) } returns null
+        coEvery { productsRepository.removeFromFavourite(product) } returns Unit
+        coEvery { productsRepository.addToFavourite(product) } returns Unit
+
+        viewModel = ProductsViewModel(productsRepository)
+        viewModel.addProductToFavourites(product)
+
+        coVerify(exactly = 1) { productsRepository.addToFavourite(product) }
+        coVerify(exactly = 0) { productsRepository.removeFromFavourite(product) }
+
+    }
+
+    @Test
+    fun `addToFavorites removes product from favorites if found`() = runTest {
+        val product = fakeProducts.first()
+
+        every { productsRepository.getProducts() } returns flowOf(fakeProducts)
+        coEvery { productsRepository.getById(product.id) } returns fakeProducts.first()
+        coEvery { productsRepository.removeFromFavourite(product) } returns Unit
+        coEvery { productsRepository.addToFavourite(product) } returns Unit
+
+        viewModel = ProductsViewModel(productsRepository)
+        viewModel.addProductToFavourites(product)
+
+        coVerify(exactly = 0) { productsRepository.addToFavourite(product) }
+        coVerify(exactly = 1) { productsRepository.removeFromFavourite(product) }
     }
 
 }
