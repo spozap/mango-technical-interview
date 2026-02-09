@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -24,7 +26,7 @@ internal fun FavoritesScreenRoute(viewModel: FavoritesViewModel = hiltViewModel(
 }
 
 @Composable
-private fun FavoritesScreen(uiState: FavoritesUiState, modifier: Modifier = Modifier) {
+internal fun FavoritesScreen(uiState: FavoritesUiState, modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -35,9 +37,17 @@ private fun FavoritesScreen(uiState: FavoritesUiState, modifier: Modifier = Modi
                 favoritesScreenSuccess(uiState.products)
             }
 
-            is FavoritesUiState.Error -> {}
-            FavoritesUiState.Loading -> {}
-            FavoritesUiState.Empty -> {}
+            is FavoritesUiState.Error -> {
+                favoritesScreenError()
+            }
+
+            FavoritesUiState.Loading -> {
+                favoritesScreenLoading()
+            }
+
+            FavoritesUiState.Empty -> {
+                favoritesScreenEmpty()
+            }
         }
     }
 }
@@ -48,8 +58,20 @@ private fun LazyListScope.favoritesScreenSuccess(products: List<Product>) {
     }
 }
 
-private fun LazyListScope.favoritesScreenError() {
+private fun LazyListScope.favoritesScreenEmpty(modifier: Modifier = Modifier) {
+    item {
+        Box(modifier = modifier.fillParentMaxSize(), contentAlignment = Alignment.Center) {
+            Text("No hay productos añadidos")
+        }
+    }
+}
 
+private fun LazyListScope.favoritesScreenError() {
+    item {
+        Box(modifier = Modifier.fillParentMaxSize(), contentAlignment = Alignment.Center) {
+            Text("ERROR", modifier = Modifier.testTag("ProfileError"))
+        }
+    }
 }
 
 private fun LazyListScope.favoritesScreenLoading(modifier: Modifier = Modifier) {
@@ -58,8 +80,4 @@ private fun LazyListScope.favoritesScreenLoading(modifier: Modifier = Modifier) 
             LoadingWheel()
         }
     }
-}
-
-private fun LazyListScope.favoritesScreenEmpty() {
-
 }
